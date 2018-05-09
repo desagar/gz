@@ -1,0 +1,8 @@
+{ "create" : { "_index" : "cities", "_type" : "cities", "_id" : "1" } }
+{"name": "Philly", "state": "PA"}
+{ "create" : { "_index" : "cities", "_type" : "cities", "_id" : "2" } }
+{"name": "San Francisco", "state": "CA"}
+{ "create" : { "_index" : "cities", "_type" : "cities", "_id" : "3" } }
+{"name": "New York", "state": "NY"}
+{ "create" : { "_index" : "cities", "_type" : "cities", "_id" : "4" } }
+{"name": "Chicago", "state": "IL"}
