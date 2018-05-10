@@ -17,7 +17,7 @@ build:
         code: |
           CGO_ENABLED=0 go build -a -ldflags '-s' -installsuffix cgo -o $WERCKER_OUTPUT_DIR/simple-es-client . 
           cp $WERCKER_OUTPUT_DIR/simple-es-client $WERCKER_REPORT_ARTIFACTS_DIR
-          cp ./load_es.sh $WERCKER_REPORT_ARTIFACTS_DIR
+          cp $WERCKER_SOURCE_DIR/load_es.sh $WERCKER_REPORT_ARTIFACTS_DIR
 
 push-ocir:
   box:
@@ -27,7 +27,7 @@ push-ocir:
   steps:
     - script:
         cp $WERCKER_OUTPUT_DIR/simple-es-client /
-        cp ./load_es.sh /
+        cp $WERCKER_OUTPUT_DIR/load_es.sh /
         
     - internal/docker-push:
         repository: iad.ocir.io/odx-pipelines/spinnaker/simple-es-client
