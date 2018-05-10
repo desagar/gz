@@ -4,7 +4,6 @@ import (
     "encoding/json"
     "log"
     "net/http"
-    "net/http/httputil"
     "io"
     "io/ioutil"
     "os"
