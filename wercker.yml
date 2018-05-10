@@ -18,6 +18,7 @@ build:
           CGO_ENABLED=0 go build -a -ldflags '-s' -installsuffix cgo -o $WERCKER_OUTPUT_DIR/simple-es-client . 
           cp $WERCKER_OUTPUT_DIR/simple-es-client $WERCKER_REPORT_ARTIFACTS_DIR
           cp $WERCKER_SOURCE_DIR/load_es.sh $WERCKER_OUTPUT_DIR
+          cp $WERCKER_SOURCE_DIR/bulk-cities-es.txt $WERCKER_OUTPUT_DIR
 
 push-ocir:
   box:
@@ -30,6 +31,7 @@ push-ocir:
         code: |    
           cp ./simple-es-client /
           cp ./load_es.sh /
+          cp ./bulk-cities-es.txt /
           apk --no-cache add curl 
           
     - internal/docker-push:
@@ -38,4 +40,4 @@ push-ocir:
         registry: https://iad.ocir.io/v2
         username: $OCIR_USERNAME
         password: $OCIR_PASSWORD
-        cmd: ./simple-es-client
+        cmd: /simple-es-client
