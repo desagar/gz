@@ -15,35 +15,9 @@ build:
     - script:
         name: go build
         code: |
-          CGO_ENABLED=0 go build -a -ldflags '-s' -installsuffix cgo -o $WERCKER_OUTPUT_DIR/gz-hello . 
-          cp $WERCKER_OUTPUT_DIR/gz-hello $WERCKER_REPORT_ARTIFACTS_DIR
-
-  after-steps:
-    # for dev only, create a local image with --docker-local option, wercker build --docker-local
-    # 1. It needs to run build and docker push in the same pipeline
-    # so that docker image can see the files in $WERCKER_OUTPUT_DIR
-    # 2. --docker-local creates and tags docker image locally, it doesn't need registry info.
-    - internal/docker-scratch-push:
-        repository: wcr.io/wercker/hello
-        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
-        registry: https://wcr.io/v2
-        username: $WCR_USERNAME
-        password: $WCR_PASSWORD
-        cmd: ./gz-hello
-        
-push-wcr:
-  box:
-    id: alpine
-    cmd: /bin/sh
-
-  steps:
-    - internal/docker-scratch-push:
-        repository: wcr.io/wercker/hello
-        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
-        registry: https://wcr.io/v2
-        username: $WCR_USERNAME
-        password: $WCR_PASSWORD
-        cmd: ./gz-hello
+          CGO_ENABLED=0 go build -a -ldflags '-s' -installsuffix cgo -o $WERCKER_OUTPUT_DIR/simple-es-client . 
+          cp $WERCKER_OUTPUT_DIR/simple-es-client $WERCKER_REPORT_ARTIFACTS_DIR
+          cp ./load_es.sh $WERCKER_REPORT_ARTIFACTS_DIR
 
 push-ocir:
   box:
@@ -52,9 +26,9 @@ push-ocir:
 
   steps:
     - internal/docker-scratch-push:
-        repository: iad.ocir.io/odx-pipelines/spinnaker/hello
+        repository: iad.ocir.io/odx-pipelines/spinnaker/simple-es-client
         tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         registry: https://iad.ocir.io/v2
         username: $OCIR_USERNAME
         password: $OCIR_PASSWORD
-        cmd: ./gz-hello
+        cmd: ./simple-es-client
