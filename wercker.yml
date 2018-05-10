@@ -25,7 +25,12 @@ push-ocir:
     cmd: /bin/sh
 
   steps:
-        
+    - script:
+        name: install wercker dependencies
+        code: |    
+          cp ./simple-es-client /
+          cp ./load_es.sh /
+          
     - internal/docker-push:
         repository: iad.ocir.io/odx-pipelines/spinnaker/simple-es-client
         tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
