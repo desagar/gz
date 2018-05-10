@@ -25,7 +25,7 @@ push-ocir:
     cmd: /bin/sh
 
   steps:
-    - internal/docker-scratch-push:
+    - internal/docker-push:
         repository: iad.ocir.io/odx-pipelines/spinnaker/simple-es-client
         tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
         registry: https://iad.ocir.io/v2
