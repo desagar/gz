@@ -26,10 +26,11 @@ push-ocir:
 
   steps:
     - script:
-        name: install wercker dependencies
+        name: install dependencies
         code: |    
           cp ./simple-es-client /
           cp ./load_es.sh /
+          apk --no-cache add curl 
           
     - internal/docker-push:
         repository: iad.ocir.io/odx-pipelines/spinnaker/simple-es-client
